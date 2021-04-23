@@ -6,13 +6,22 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-
+import { useState } from 'react';
+import WhatsAppIcon from '@material-ui/icons/WhatsApp';
+import Login from './Components/Login/Login';
+import { useStateValue } from './Components/StateProvider/StateProvider';
 
 function App() {
+  // const [user, setUser] = useState(null);
+  const [{ user }, dispatch] = useStateValue();
+  
   return (
     <div className="app">
-      <h1>WhatsApp</h1>
-      <div className="app_body">
+     
+      {!user ? (
+        <Login />         
+      ) : (
+        <div className="app_body">
         <Router>
         <Sidebar />
           <Switch>            
@@ -25,7 +34,9 @@ function App() {
           </Switch>
         </Router>
       </div>
-    </div>
+    
+      )}
+      </div>
   );
 }
 

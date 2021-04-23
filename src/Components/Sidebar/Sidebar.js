@@ -7,8 +7,10 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SearchIcon from '@material-ui/icons/Search';
 import SidebarChat from './SidebarChat/SidebarChat';
 import db from '../FireBase/ConfigFile/Firebase.config';
+import { useStateValue } from '../StateProvider/StateProvider';
 const Sidebar = () => {
     const [rooms, setRooms] = useState([]);
+    const [{ user }, dispatch] = useStateValue();
     useEffect(() =>{
         const unsubscribe =  db.collection('rooms').onSnapshot(snapshot => (
             setRooms(snapshot.docs.map(doc => ({
@@ -26,7 +28,7 @@ const Sidebar = () => {
     return (
         <div className="sidebar">
             <div className="sidebar_header">
-                <Avatar />
+                <Avatar src={user?.photoURL} />
                 <div className="sidebar_headerRight">
                     <IconButton>
                     <DonutLargeIcon />
